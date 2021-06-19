@@ -1,0 +1,78 @@
+import * as React from 'react';
+import { View, Text, Button } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { shuffle, dict } from './test'
+import { useState } from 'react';
+
+
+function Etat() {
+  const [count, setCount] = useState(0);
+    return (
+      <div>
+        <p>Vous avez cliqué {count} fois</p>
+        <button onClick={() => setCount(count + 1)}>   
+        Cliquez ici
+        </button>
+      </div>
+    );
+  }
+
+function HomeScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      
+      <Button
+        title="Go to Lettre"
+        onPress={() => navigation.navigate('Lettre')}
+      />
+    </View>
+  );
+}
+
+
+
+
+function Lettre({ navigation }){
+  const [count, setCount] = useState(0)
+  const melangemot = shuffle(dict.key1.split(""))
+  const buttons = melangemot.map((Lettre, index) =>
+   <Button title={Lettre} onPress={() => handleClick(Lettre)}/>
+   )
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Mot à deviner</Text>
+      {buttons}
+      <Button title="Go back" onPress={() => navigation.goBack()} />
+    </View>
+  );
+}
+
+
+function RegleScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Button
+        title="Go to Notifications"
+        onPress={() => navigation.navigate('Notifications')}
+      />
+      <Button title="Go back" onPress={() => navigation.goBack()} />
+    </View>
+  );
+}
+
+const Stack = createStackNavigator();
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Menu">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Regle" component={RegleScreen} />
+        <Stack.Screen name="Lettre" component={Lettre} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default App;
