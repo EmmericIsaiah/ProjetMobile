@@ -1,11 +1,10 @@
-import { TextInput } from "react-native-gesture-handler";
-
+//dictionnare contenant les mots à deviner
 export const dict = {
     key1: "france",
     key2: "allemagne"
 };
 
-
+//Mélange les lettres d'un mot
 export function shuffle(arr) {
     var i,
         j,
@@ -19,6 +18,3 @@ export function shuffle(arr) {
     return arr;    
 };
 
-// export function tentative() {
-//     var reponse = []
-// }
